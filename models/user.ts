@@ -47,6 +47,7 @@ export class Users extends Model {
   zipcode?:string;
   workwithpets?:boolean;
   languagedId?:number;
+  roleid?:number;
   createdAt!: Date;
   updatedAt!: Date;
 };
@@ -94,6 +95,9 @@ export const UserModelAttributes: ModelAttributes = {
     type:DataTypes.BOOLEAN
   },
   languagedId: {
+    type:DataTypes.INTEGER
+  },
+  roleid:{
     type:DataTypes.INTEGER
   },
   createdAt: {
