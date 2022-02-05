@@ -44,6 +44,9 @@ module.exports = {
       languagedId:{
         type: Sequelize.INTEGER
       },
+      roleid :{
+        type:Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

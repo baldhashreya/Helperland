@@ -89,7 +89,7 @@ const ContactUsDefineModel = sequelize.define(
 
   export const dbUser: DBUserContaxt = {
     sequelize: sequelize,
-    Users : UserDefinrModel
+    Users : UserDefinrModel,
   }
   export {ContactUsDefineModel};
   export {UserDefinrModel};
