@@ -1,44 +1,18 @@
-// 'use strict';
 
-// const fs = require('fs');
-// const path = require('path');
-// const Sequelize = require('sequelize');
-/// const basename = path.basename(__filename);
-// const env = process.env.NODE_ENV || 'development';
-// const config = require(__dirname + '/../config/config.json')[env];
-// const db = {};
-
-// let sequelize;
-// if (config.use_env_variable) {
-//   sequelize = new Sequelize(process.env[config.use_env_variable], config);
-// } else {
-//   sequelize = new Sequelize(config.database, config.username, config.password, config);
-// }
-
-// fs
-//   .readdirSync(__dirname)
-//   .filter(file => {
-//     return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
-//   })
-//   .forEach(file => {
-//     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-//     db[model.name] = model;
-//   });
-
-// Object.keys(db).forEach(modelName => {
-//   if (db[modelName].associate) {
-//     db[modelName].associate(db);
-//   }
-// });
-
-// db.sequelize = sequelize;
-// db.Sequelize = Sequelize;
-
-// module.exports = db;
-
-import { BuildOptions, Model, Sequelize } from 'sequelize';
-import { ContactUs, ContactUsModelAttributes } from "./contactus";
-import { Users , UserModelAttributes } from './user';
+import {  Sequelize } from 'sequelize';
+import { CityModelAttributes } from './city';
+import {  ContactUsModelAttributes } from "./contactus";
+import { FavoriteAndBlockedModelAttributes } from './favoriteandblocked';
+import { RatingModelAttributes } from './rating';
+import { Request_ZipCodesModelAttributes } from './request_zipcode';
+import { ServiceRequestModelAttributes } from './servicerequest';
+import { ServiceRequestAddressModelAttributes } from './servicerequestaddress';
+import { ServiceRequestExtraModelAttributes } from './servicerequestextra';
+import { StateModelAttributes } from './state';
+import { TestModelAttributes } from './test';
+import {  UserModelAttributes } from './user';
+import {  UserAddressModelAttributes } from './useraddress';
+import { ZipCodeModelAttributes } from './zipcode';
 const env = process.env.NODE_ENV || 'development';
 
 const config = require('../config/config')[env];
@@ -49,11 +23,8 @@ const  sequelize = config.url
 export { Sequelize, sequelize };
 
 
-type ContactUsModelStatic = typeof Model & {
-    new (values?: object, options?: BuildOptions): ContactUs;
-};
 
-const ContactUsDefineModel = sequelize.define(
+export const ContactUsDefineModel = sequelize.define(
     'ContactUs',
     {
       ...ContactUsModelAttributes
@@ -61,35 +32,228 @@ const ContactUsDefineModel = sequelize.define(
     {
       tableName: 'ContactUs'
     }
-)as ContactUsModelStatic;
+    
+);
 
- const UserDefinrModel = sequelize.define(
-   'Users',{
-     ...UserModelAttributes
-   },{
-     tableName:'Users'
-   }
- ); 
-
-
-  export interface DbContext {
-    sequelize: Sequelize;
-    ContactUs: (ContactUsModelStatic|any);
-  }
-
-  export interface DBUserContaxt{
-    sequelize: Sequelize;
-    Users : any;
+export const Request_ZipCodesDefineModel = sequelize.define(
+  'Request_ZipCodes',
+  {
+    ...Request_ZipCodesModelAttributes
+  },
+  {
+    tableName: 'Request_ZipCodes'
   }
   
-  export const dbContact: DbContext = {
-    sequelize: sequelize,
-    ContactUs: ContactUsDefineModel
-  }
+);
 
-  export const dbUser: DBUserContaxt = {
-    sequelize: sequelize,
-    Users : UserDefinrModel,
+
+export const UserDefineModel = sequelize.define(
+   'Users',
+   {
+     ...UserModelAttributes
+   },
+   {
+     tableName:'Users'
+   }
+
+); 
+
+export const UserAddressDefineModel = sequelize.define(
+  'UserAddress',
+  {
+    ...UserAddressModelAttributes
+  },
+  {
+    tableName:'UserAddress'
   }
-  export {ContactUsDefineModel};
-  export {UserDefinrModel};
+);
+
+export const FavoriteAndBlockedDefineModel = sequelize.define(
+  'FavoriteAndBlocked',
+  {
+    ...FavoriteAndBlockedModelAttributes
+  },
+  {
+    tableName:'FavoriteAndBlocked'
+  }
+);
+
+// export const CityDefineModel = sequelize.define(
+//   'City',
+//   {
+//     ...CityModelAttributes
+//   },
+//   {
+//     tableName:'City'
+//   }
+// );
+
+// export const StateDefineModel = sequelize.define(
+//   'State',
+//   {
+//     ...StateModelAttributes
+//   },
+//   {
+//     tableName:'State'
+//   }
+// );
+
+export const ServiceRequestDefineModel = sequelize.define(
+  'ServiceRequest',
+  {
+    ...ServiceRequestModelAttributes
+  },
+  {
+    tableName:'ServiceRequest'
+  }
+);
+
+// export const RatingDefineModel = sequelize.define(
+//   'Rating',
+//   {
+//     ...RatingModelAttributes
+//   },
+//   {
+//     tableName:'Rating'
+//   }
+// );
+
+export const ServiceRequestAddressDefineModel = sequelize.define(
+  'ServiceRequestAddress',
+  {
+    ...ServiceRequestAddressModelAttributes
+  },
+  {
+    tableName:'ServiceRequestAddress'
+  }
+);
+
+export const ServiceRequestExtraDefineModel = sequelize.define(
+  'ServiceRequestExtra',
+  {
+    ...ServiceRequestExtraModelAttributes
+  },
+  {
+    tableName:'ServiceRequestExtra'
+  }
+);
+
+// export const TestDefineModel = sequelize.define(
+//   'Test',
+//   {
+//     ...TestModelAttributes
+//   },
+//   {
+//     tableName:'Test'
+//   }
+// );
+
+// export const ZipCodeDefineModel = sequelize.define(
+//   'ZipCode',
+//   {
+//     ...ZipCodeModelAttributes
+//   },
+//   {
+//     tableName:'ZipCode'
+//   }
+// );
+
+UserDefineModel.hasMany(UserAddressDefineModel);
+UserAddressDefineModel.belongsTo(UserDefineModel);
+
+// UserAddressDefineModel.belongsTo(UserDefineModel,{
+//   foreignKey:'userid',
+//   as:'useraddress'
+// );
+
+UserDefineModel.hasMany(FavoriteAndBlockedDefineModel);
+
+FavoriteAndBlockedDefineModel.belongsTo(UserDefineModel);
+
+// StateDefineModel.hasMany(CityDefineModel,{
+//   sourceKey:'id',
+//   foreignKey:'stateId',
+//   as:'state'
+// });
+
+// CityDefineModel.belongsTo(StateDefineModel,{
+//   foreignKey:'stateId',
+//   as:'city'
+// });
+
+// ServiceRequestDefineModel.hasOne(RatingDefineModel,{
+//   sourceKey:'id',
+//   foreignKey:'serviceRequestid',
+//   as:'ServiceRating'
+// });
+
+// RatingDefineModel.belongsTo(ServiceRequestDefineModel,{
+//   foreignKey:'serviceRequestid',
+//   as:'rating'
+// });
+
+UserDefineModel.hasMany(ServiceRequestDefineModel);
+ServiceRequestDefineModel.belongsTo(UserDefineModel);
+
+// ServiceRequestDefineModel.hasMany(ServiceRequestAddressDefineModel,{
+//   sourceKey:'id',
+//   foreignKey:'ServiceRequestId',
+//   as:'ServiceRequest'
+// });
+
+// ServiceRequestAddressDefineModel.belongsTo(ServiceRequestDefineModel,{
+//   foreignKey:'ServiceRequestId',
+//   as:'ServiceRequestAddress'
+// });
+
+
+ServiceRequestDefineModel.hasOne(ServiceRequestExtraDefineModel);
+ServiceRequestExtraDefineModel.belongsTo(ServiceRequestDefineModel);
+
+
+// CityDefineModel.hasOne(ZipCodeDefineModel,{
+//   sourceKey:'id',
+//   foreignKey:'CityId',
+//   as:'City'
+// });
+
+// ZipCodeDefineModel.belongsTo(CityDefineModel,{
+//   foreignKey:'CityId',
+//   as:'ZipCode'
+// });
+
+// UserDefineModel.hasMany(RatingDefineModel,{
+//   sourceKey:'id',
+//   foreignKey:'RatingFrom',
+//   as:'ratingfrom'
+// });
+
+// UserDefineModel.hasMany(RatingDefineModel,{
+//   sourceKey:'id',
+//   foreignKey:'RatingTo',
+//   as:'ratingto'
+// });
+
+// UserDefineModel.hasMany(FavoriteAndBlockedDefineModel,{
+//   sourceKey:'id',
+//   foreignKey:'TargetUserId',
+//   as:'targetuser'
+// });
+
+// UserDefineModel.hasMany(ServiceRequestDefineModel,{
+//   sourceKey:'id',
+//   foreignKey:'ServiceProviderId',
+//   as:'serviceprovider'
+// });
+// UserDefineModel.hasMany(ServiceRequestDefineModel,{
+//   sourceKey:'id',
+//   foreignKey:'UserId',
+//   as:'User'
+// });
+
+
+
+
+
+
+
