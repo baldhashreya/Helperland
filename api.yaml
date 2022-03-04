@@ -1,0 +1,938 @@
+swagger : "2.0"
+info:
+  title: "Helperland"
+  version: "1.0.0"
+  description: "Herlperland is a platform where the service providers i.e. cleaners can register themselves for providing services through the portal and would receive the services booked by the customers. The other type of users Customers can book the service requests for cleaning and get the job done by one of the service providers from the portal"
+  contact: 
+    email: "baldha.shreya027@gamil.com"
+    name: "Shreya Baldha"
+  servers:
+    url: "http://localhost:7000"
+schemes: ['http','https']
+
+paths:
+  /tarinee2021/contact/createcontactus:
+    post:
+      summary: Create ContactUs
+      description: Create User for ContactUs
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: formData
+          name: firstName
+          type: string
+          required: true
+          description: firstName
+        - in: formData
+          name: lastName
+          type: string
+          required: true
+          description: LastName
+        - in: formData
+          name: email 
+          type: string
+          required: true
+          description: email
+        - in: formData
+          name: mobilenumber 
+          type: string
+          required: true
+          description: mobilenumber
+        - in: formData
+          name: subjectType 
+          type: string
+          required: true
+          description: subjecttype
+        - in: formData
+          name: message 
+          type: string
+          required: true
+          description: message
+        - in: formData
+          name: uploadfile 
+          type: file
+          required: true
+          description: Uploadfile
+      responses:
+        200:
+          description: user created succesfully
+        500:
+          description: failure 
+  /tarinee2021/contact/getcontactus:
+    get:
+      summary: Show  All ContactUs Data
+      description: All  data
+      responses:
+        200:
+          description: sucess
+        500:
+          description: failure
+  /tarinee2021/contact/getcontactus/{id}:
+    get:
+      summary: Show ContactUs Data By Id
+      description: ContactUs by Id
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          example: 2
+          description: Numeric ID of the ContactUs to get
+      responses:
+        200:
+          description: sucess
+        500:
+          description: failure 
+  # /tarinee2021/contact/updatecontactus/{id}:
+  #   put:
+  #     summary: Update ContactUs
+  #     description: ContactUs update
+  #     produces:
+  #       - application/json
+  #     consumes:
+  #       - application/json
+  #     parameters:
+  #       - in: path
+  #         name: id
+  #         schema:
+  #           type: integer
+  #         required: true
+  #         example: 2
+  #         description: Numeric ID of the ContactUs to get
+  #       - in: body
+  #         name: ContactUs 
+  #         schema:
+  #           $ref: '#/definitions/ContactUs'
+  #     responses:
+  #       200:
+  #         description: sucess
+  #       500:
+  #         description: failure
+  # /tarinee2021/contact/deletecontactus/{id}:
+  #   delete:
+  #     summary: Delete ContactUs
+  #     description: Delete ContactUs
+  #     parameters:
+  #       - in: path
+  #         name: id
+  #         schema:
+  #           type: integer
+  #         require: true
+  #         description: id of the Contactus. 
+  #         example: 2
+  #     responses:
+  #       200:
+  #         description: sucess
+  #       500:
+  #         description: failure
+  /trainee2021/userRegistration:
+    post:
+      summary: SignUp User
+      description: SignUp User
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: User 
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/sp-sign-up:
+    post:
+      summary: SignUp Helper
+      description: SignUp Helper
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: User 
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/login:
+    post:
+      summary: Login User
+      description: Login User
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: Login
+          schema:
+            $ref: '#/definitions/Login'
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/logout:
+    get:
+      summary: Logout
+      description: Logout
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/reset-password:
+    post:
+      summary: Reset_Password Request
+      description: Reset_Password Request
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: Reset Password
+          schema:
+            $ref: '#/definitions/Reset_Password_Request'
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/password-reset/{user_id}/{token}:
+    post:
+      summary: Reset Password
+      description: Reset Password
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: user_id
+          schema:
+            type: integer
+          require: true
+          description: id of the Contactus. 
+          example: 1
+        - in: path
+          name: token
+          schema:
+            type: string
+          require: true
+          description: id of the Contactus. 
+          example: "cdihcwkiu"
+        - in: body
+          name: Reset Password
+          schema:
+            $ref: '#/definitions/Reset_Password'
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/book-service/postal-code:
+    post:
+      summary: Find Postel-Code
+      description: Postel-Code
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: Postel_Code
+          schema:
+            $ref: '#/definitions/Postel_code'
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/book-service/plan/{id}:
+    post:
+      summary: Schedule & Plan
+      description: Schedule & Plan
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          require: true
+          description: id of the User. 
+          example: 1
+        - in: body
+          name: Postel_Code
+          schema:
+            $ref: '#/definitions/Schedule_Plan'
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/book-service/details/{id}:
+    get:
+      summary: All User Address
+      description: User Address
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          require: true
+          description: id of the User. 
+          example: 1
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/book-service/add_address/{id}:
+    post:
+      summary: Add User Address
+      description: Add User Address
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          require: true
+          description: id of the User. 
+          example: 1
+        - in: body
+          name: Postel_Code
+          schema:
+            $ref: '#/definitions/User_Address'
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/book-service/set_address/{user_id}/{Address_id}:
+    get:
+      summary: Set User Address
+      description: Set User Address
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: user_id
+          schema:
+            type: integer
+          require: true
+          description: id of the User. 
+          example: 1
+        - in: path
+          name: Address_id
+          schema:
+            type: integer
+          require: true
+          description: id of the User Address. 
+          example: 1
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/book-service/set-fev/{id}:
+    get:
+      summary: Favourite Service Provider
+      description: Favourite Service Provider
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          require: true
+          description: id of the User. 
+          example: 1
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/book-service/set-fev/{id}/{token}:
+    get:
+      summary: Favourite Service Provider
+      description: Favourite Service Provider
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          require: true
+          description: id of the User. 
+          example: 1
+        - in: path
+          name: token
+          schema:
+            type: integer
+          require: true
+          description: id of the Plan. 
+          example: 1001
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/book-service/payment/{id}:
+    post:
+      summary: Payment
+      description: Payment
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          require: true
+          description: id of the User. 
+          example: 1
+        - in: body
+          name: Postel_Code
+          schema:
+            $ref: '#/definitions/Payment'
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/customer/servicerequest:
+    get:
+      summary: User DashBoard
+      description: User DashBoard
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/customer/servicerequest/service-details/{id}:
+    get:
+      summary: User Service-Details By Id
+      description: User Service-Details By Id
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          require: true
+          description: id of the ServiceId. 
+          example: 1
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/customer/servicerequest/reschedule/{id}:
+    post:
+      summary: User ReSchedule
+      description: User ReSchedule
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          require: true
+          description: id of the ServiceId. 
+          example: 1
+        - in: body
+          name: Postel_Code
+          schema:
+            $ref: '#/definitions/ReSchedule'
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/customer/servicerequest/cancel/{id}:
+    post:
+      summary: Cancle the ServiceRequest
+      description: Cancle the ServiceRequest
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          require: true
+          description: id of the ServiceId. 
+          example: 1
+        - in: body
+          name: Cancle the ServiceRequest
+          schema:
+            $ref: '#/definitions/Cancle'
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/customer/service-history:
+    get:
+      summary: User Service-History
+      description: User Service-History
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/customer/service-history/RateUp/{id}:
+    post:
+      summary: RateUp Helper
+      description: RateUp Helper
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          require: true
+          description: id of the service Id. 
+          example: 1
+        - in: body
+          name: Rating the Helper
+          schema:
+            $ref: '#/definitions/RateUp'
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/customer/service-history/export:
+    get:
+      summary: User Service-History Download
+      description: User Service-History Download
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/customer/my-account:
+    get:
+      summary: User Details
+      description: User Details
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/customer/my-account/edit:
+    post:
+      summary: User Edit Details
+      description: User Edit Details
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: User Details
+          schema:
+            $ref: '#/definitions/Details'
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/customer/my-account/address:
+    get:
+      summary: User Addresses
+      description: User Addesses
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/customer/my-account/add-address:
+    post:
+      summary: User Add Addresses
+      description: User Add Addesses
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: User Details
+          schema:
+            $ref: '#/definitions/User_Address'
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/customer/my-account/change-address/{id}:
+     post:
+      summary: User Update Addresses
+      description: User Update Addesses
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          require: true
+          description: id of the Address Id. 
+          example: 1
+        - in: body
+          name: Customer Update Address
+          schema:
+            $ref: '#/definitions/User_Address'
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/customer/my-account/delete-address/{id}:
+    get:
+      summary: User delete Addresses
+      description: User delete Addesses
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          require: true
+          description: id of the Address Id. 
+          example: 1
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/customer/my-account/change-password:
+     post:
+      summary: Change the password
+      description: Change the Password
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          require: true
+          description: id of the Address Id. 
+          example: 1
+        - in: body
+          name: Customer Update Address
+          schema:
+            $ref: '#/definitions/change-password'
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/customer/favourite-pros:
+    get:
+      summary: User Favourite Page
+      description: User Favourite Page
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/customer/favourite-pros/favourite/{id}:
+    get:
+      summary: User select Favourite
+      description: User select Favourite
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          require: true
+          description: id of the HelperId 
+          example: 1
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+  /trainee2021/customer/favourite-pros/Unfavourite/{id}:
+    get:
+      summary: User select UnFavourite
+      description: User select UnFavourite
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          require: true
+          description: id of the HelperId 
+          example: 1
+      responses:
+        200:
+          description: succesfully
+        500:
+          description: failure
+
+
+
+definitions:
+  User:
+    type: object
+    properties:
+      FirstName:
+        type: string
+        description: first name of the user
+        example: 'shreya'
+      LastName:
+        type: string
+        description: last name of the user
+        example: 'baldha'
+      email:
+        type: string
+        description: email of the user
+        example: 'baldha.shreya027@gmail.com'
+      MobileNumber:
+        type: string
+        description: phone number
+        example: '7487989043'
+      Password:
+        type: string
+        description: Password
+        example: 'Shreya!123'
+      ConfirmPassword:
+        type: Password
+        description: Confirm Password
+        example: 'Shreya!123'
+  Login:
+    type: object
+    properties:
+      email: 
+        type: string
+        description: email of User
+        example: 'shreyabaldha0@gmail.com'
+      Password:
+        type: string
+        description: Password
+        example: 'Shreya!123'
+  Reset_Password_Request:
+    type: object
+    properties:
+      email:
+        type: string
+        description: email of User
+        example: 'shreyabaldha0@gmail.com'
+  Reset_Password:
+    type: object
+    properties:
+      Password:
+        type: string
+        description: Password
+        example: 'Shreya!123'
+      ConfirmPassword:
+        type: string
+        description: ConfirmPassword
+        example: 'Shreya!123'
+  Postel_code:
+    type: object
+    properties:
+      postelcode:
+        type: string
+        description: Postel Code
+        example: '360405'
+  Schedule_Plan:
+    type: object
+    properties:
+      ServiceStartDate:
+        type: date
+        description: service start date
+        example: '25/02/2022'
+      ArrivalTime:
+        type: string
+        description: Arrival time
+        example: '11:00'
+      ServiceHours:
+        type: string
+        description: basic hours
+        example: '4.5'
+      ExtraHours:
+        type: array
+        description: extra hours
+        example: ["Clean cabinet interiors","Washing and drying laundry","Cleaning windows"]
+      Discount:
+        type: string
+        description: Discount
+        example: 'H-25'
+      Comments:
+        type: string
+        description: Comment
+        example: "hii"
+      HasPets:
+        type: boolean
+        description: pets or not
+        example: "true"  
+  User_Address:
+    type: object
+    properties:
+      City: 
+        type: string
+        description: City of User
+        example: "Rajkot"
+      State:
+        type: string
+        description: State of User
+        example: "Gujarat"
+      Street_name:
+        type: string
+        description: Street_name of User
+        example: "limada chok"
+      House_number:
+        type: string
+        description: House number of User
+        example: "S-12"
+      Mobile:
+        type: string
+        description: House Mobile Number of User
+        example: "9904266342"
+  Payment:
+    type: object
+    properties:
+      CardNumber: 
+        type: string
+        description: CardNumber
+        example: "1234123412341234"
+      ValidDate:
+        type: date
+        description: validateDate
+        example: "12/22"
+      CCV:
+        type: string
+        description: CCV number
+        example: "603"
+  ReSchedule:
+    type: object
+    properties:
+      date:
+        type: date
+        description: Update date
+        example: "28/02/2022" 
+      ArrivalTime:
+        type: string
+        description: Update time
+        example: "10:30"
+  Cancle:
+    type: object
+    properties: 
+      reason:
+        type: string
+        description: Cancle 
+        example: "i do not want"
+  Details:
+    type: object
+    properties:
+      FirstName:
+        type: string
+        description: First Name 
+        example: "shreya"
+      LastName:
+        type: string
+        description: Last Name 
+        example: "Baldha"
+      email:
+        type: string
+        description: Email 
+        example: "shreyabaldha0@gamil.com"
+      MobileNumber:
+        type: string
+        description: MobileNumber
+        example: "7487989043"
+      Date_Of_Birth:
+        type: string
+        description: Date of Birth
+        example: "27/01/2001"
+      LanguageId:
+        type: string
+        description: LanguageId
+        example: 1
+  RateUp:
+    type: object
+    properties:
+      OnTimeArrival:
+        type: integer
+        description: OnTimeArrival
+        example: 1
+      Friendlly:
+        type: integer
+        description: Friendlly
+        example: 1
+      QualityOfService:
+        type: integer
+        description: QualityOfService
+        example: 1
+      Comments:
+        type: string
+        description: Comments
+        example: "Good"
+  change-password:
+    type: object
+    properties:
+      Password:
+        type: string
+        description: OldPassword
+        example: "Shreya!123"
+      NewPassword:
+        type: string
+        description: NewPassword
+        example: "Shreya!123"
+      ConfirmPassword:
+        type: string
+        description: ConfirmPassword
+        example: "Shreya!123"
+      
+      
+
+
+
+
+
+        
+
+
+               
+
+
+  
+
+
+
+        
+
+        
