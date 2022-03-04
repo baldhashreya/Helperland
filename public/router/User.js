@@ -1,0 +1,23 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+const express_1 = __importDefault(require("express"));
+const router = express_1.default.Router();
+const user_repository_1 = require("../User/user_repository");
+const user_model_1 = require("../User/user_model");
+const user_service_1 = require("../User/user_service");
+const user_controller_1 = require("../User/user_controller");
+const encrypt_1 = require("../User/encrypt");
+const repo = new user_repository_1.UserRepository();
+const service = new user_service_1.UserService(repo);
+const controller = new user_controller_1.UserController(service);
+router.post('/signup', user_model_1.sigup, controller.createUser);
+router.post('/helper', user_model_1.sigup, controller.createHelper);
+router.post('/login', user_model_1.Login, controller.login);
+router.get('/conform/:id', controller.conform);
+router.post('/logout', user_model_1.link, controller.logout);
+router.get('/login', encrypt_1.verifyToken, controller.Login);
+router.post('/reset-password', user_model_1.link, encrypt_1.verifyToken, controller.resetEmail);
+router.post('/password-reset/:user_id/:token', user_model_1.Password, encrypt_1.verifyToken, controller.resetpassword);
+module.exports = router;
